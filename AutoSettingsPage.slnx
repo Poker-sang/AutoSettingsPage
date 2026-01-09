@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="AutoSettingsPage.WinUI/AutoSettingsPage.WinUI.csproj" Id="d0f73812-058c-4b9d-9c4d-3815e7d2237f" />
+  <Project Path="AutoSettingsPage/AutoSettingsPage.csproj" />
+</Solution>

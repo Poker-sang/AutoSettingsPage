@@ -1,0 +1,24 @@
+<controls:SettingsCard
+    x:Class="AutoSettingsPage.WinUI.ColorSettingsCard"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.WinUI.Controls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:fluent="using:FluentIcons.WinUI"
+    xmlns:local="using:AutoSettingsPage.WinUI"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Description="{x:Bind local:SettingsEntryHelper.DescriptionControl(Entry)}"
+    Header="{x:Bind Entry.Header}"
+    Tag="{x:Bind Entry.Token}"
+    mc:Ignorable="d">
+    <controls:SettingsCard.HeaderIcon>
+        <fluent:SymbolIcon Symbol="{x:Bind Entry.Icon}" />
+    </controls:SettingsCard.HeaderIcon>
+    <controls:SettingsCard.Resources>
+        <Style x:Name="ColorPickerStyle" TargetType="ColorPicker">
+            <Setter Property="IsMoreButtonVisible" Value="True" />
+            <Setter Property="IsAlphaEnabled" Value="True" />
+        </Style>
+    </controls:SettingsCard.Resources>
+    <controls:ColorPickerButton ColorPickerStyle="{StaticResource ColorPickerStyle}" SelectedColor="{x:Bind local:ColorSettingsCard.ToAlphaColor(Entry.Value), BindBack=ColorBindBack, Mode=TwoWay}" />
+</controls:SettingsCard>
