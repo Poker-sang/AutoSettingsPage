@@ -25,7 +25,7 @@ public sealed partial class EnumComboBox : ComboBox
         base.SelectionChanged += ComboBox_SelectionChanged;
         var token = RegisterPropertyChangedCallback(ItemsSourceProperty, (sender, _) =>
         {
-            if (sender is EnumComboBox { ItemsSource: IEnumerable<EnumStringPair<object>> enumerable } box)
+            if (sender is EnumComboBox { ItemsSource: IEnumerable<IReadOnlyEnumStringPair<object>> enumerable } box)
                 box.SelectedItem = enumerable.FirstOrDefault();
         });
         Unloaded += (sender, _) => ((DependencyObject) sender).UnregisterPropertyChangedCallback(ItemsSourceProperty, token);
@@ -35,7 +35,7 @@ public sealed partial class EnumComboBox : ComboBox
 
     private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var newEnum = SelectedItem is EnumStringPair<object> { Enum: { } option } ? option : null;
+        var newEnum = SelectedItem is IReadOnlyEnumStringPair<object> { Enum: { } option } ? option : null;
         if (Equals(newEnum, SelectedEnum))
             return;
         SelectedEnum = newEnum;
@@ -51,6 +51,6 @@ public sealed partial class EnumComboBox : ComboBox
     private static void OnSelectedEnumPropertyChanged(DependencyObject o, DependencyPropertyChangedEventArgs e)
     {
         if (o is EnumComboBox s)
-            s.SelectedItem = (s.ItemsSource as IEnumerable<EnumStringPair<object>>)?.FirstOrDefault(r => Equals(r.Enum, s.SelectedEnum));
+            s.SelectedItem = (s.ItemsSource as IEnumerable<IReadOnlyEnumStringPair<object>>)?.FirstOrDefault(r => Equals(r.Enum, s.SelectedEnum));
     }
 }

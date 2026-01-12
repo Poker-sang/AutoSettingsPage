@@ -1,36 +1,38 @@
+using System;
 using System.Linq.Expressions;
+using AutoSettingsPage.Models;
 using FluentIcons.Common;
 
-namespace AutoSettingsPage.Models;
+namespace AutoSettingsPage.WinUI;
 
-public class BoolSettingsEntry<TSettings> : SingleValueSettingsEntry<TSettings, bool>
+public partial class FontSettingsEntry<TSettings> : StringSettingsEntry<TSettings>
 {
-    public BoolSettingsEntry(
+    public FontSettingsEntry(
         TSettings settings,
         string token,
         string header,
         string description,
         Symbol icon,
         string? placeholder,
-        Func<TSettings, bool> getter,
-        Action<TSettings, bool> setter)
+        Func<TSettings, string> getter,
+        Action<TSettings, string> setter)
         : base(settings, token, header, description, icon, placeholder, getter, setter)
     {
     }
 
-    public BoolSettingsEntry(
+    public FontSettingsEntry(
         TSettings settings,
         string token,
         SettingsEntryAttribute attribute,
-        Func<TSettings, bool> getter,
-        Action<TSettings, bool> setter)
+        Func<TSettings, string> getter,
+        Action<TSettings, string> setter)
         : base(settings, token, attribute, getter, setter)
     {
     }
 
-    public BoolSettingsEntry(
+    public FontSettingsEntry(
         TSettings settings,
-        Expression<Func<TSettings, bool>> property)
+        Expression<Func<TSettings, string>> property)
         : base(settings, property)
     {
     }

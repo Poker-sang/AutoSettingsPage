@@ -2,13 +2,23 @@ using System.Numerics;
 
 namespace AutoSettingsPage.Models;
 
-public interface ISingleValueSettingsEntry<TValue> : ISettingsEntry
+public interface IReadOnlySingleValueSettingsEntry : ISettingsEntry
 {
-    string Token { get; }
-
-    TValue Value { get; set; }
+    object Value { get; }
 
     string? Placeholder { get; }
+}
+
+public interface ISingleValueSettingsEntry<TValue> : IReadOnlySingleValueSettingsEntry
+{
+    object IReadOnlySingleValueSettingsEntry.Value => Value!;
+
+    new TValue Value { get; set; }
+}
+
+public interface ISettingsValueReset<in TSettings>
+{
+    void ValueReset(TSettings settings);
 }
 
 public interface IMinMaxEntry<TValue> : ISingleValueSettingsEntry<TValue>
@@ -25,7 +35,7 @@ public interface INumberSettingsEntry<TNumber> : IMinMaxEntry<TNumber> where TNu
 
 public interface IEnumSettingsEntry<TEnum> : ISingleValueSettingsEntry<TEnum>
 {
-    IReadOnlyList<EnumStringPair<TEnum>> EnumItems { get; }
+    IReadOnlyList<IReadOnlyEnumStringPair<TEnum>> EnumItems { get; }
 }
 
 public interface IOptionSettingsEntry<out TOption> : ISettingsEntry

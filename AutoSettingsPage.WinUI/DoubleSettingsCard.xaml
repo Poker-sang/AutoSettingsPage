@@ -7,6 +7,7 @@
     xmlns:fluent="using:FluentIcons.WinUI"
     xmlns:local="using:AutoSettingsPage.WinUI"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:numberFormatting="using:Windows.Globalization.NumberFormatting"
     Description="{x:Bind local:SettingsEntryHelper.DescriptionControl(Entry)}"
     Header="{x:Bind Entry.Header}"
     Tag="{x:Bind Entry.Token}"
@@ -15,10 +16,21 @@
         <fluent:SymbolIcon Symbol="{x:Bind Entry.Icon}" />
     </controls:SettingsCard.HeaderIcon>
     <NumberBox
+        MinWidth="200"
+        IsWrapEnabled="True"
         Maximum="{x:Bind Entry.Max}"
         Minimum="{x:Bind Entry.Min}"
         PlaceholderText="{x:Bind Entry.Placeholder}"
         SmallChange="{x:Bind Entry.Step}"
-        Style="{StaticResource SettingsNumberBoxStyle}"
-        Value="{x:Bind Entry.Value, Mode=TwoWay}" />
+        SpinButtonPlacementMode="Compact"
+        ValidationMode="InvalidInputOverwritten"
+        Value="{x:Bind Entry.Value, Mode=TwoWay}">
+        <NumberBox.NumberFormatter>
+            <numberFormatting:DecimalFormatter FractionDigits="0">
+                <numberFormatting:DecimalFormatter.NumberRounder>
+                    <numberFormatting:IncrementNumberRounder Increment="1" RoundingAlgorithm="RoundHalfUp" />
+                </numberFormatting:DecimalFormatter.NumberRounder>
+            </numberFormatting:DecimalFormatter>
+        </NumberBox.NumberFormatter>
+    </NumberBox>
 </controls:SettingsCard>

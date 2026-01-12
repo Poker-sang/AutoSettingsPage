@@ -10,7 +10,7 @@ public sealed partial class DoubleSettingsCard : IEntryControl<INumberSettingsEn
 {
     public INumberSettingsEntry<double> Entry
     {
-        get => field;
+        get;
         set
         {
             if (field == value)

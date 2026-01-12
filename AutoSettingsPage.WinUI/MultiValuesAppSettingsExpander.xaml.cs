@@ -10,6 +10,7 @@ public sealed partial class MultiValuesAppSettingsExpander : IEntryControl<IMult
         set
         {
             field = value;
+            Items.Clear();
             foreach (var entry in Entry.Entries)
                 Items.Add(SettingsEntryHelper.GetControl(entry));
         }

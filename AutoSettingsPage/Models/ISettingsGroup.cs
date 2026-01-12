@@ -4,9 +4,12 @@ namespace AutoSettingsPage.Models;
 
 public interface ISettingsGroup : IReadOnlyList<ISettingsEntry>, ISettingsEntry;
 
-internal class SimpleSettingsGroup(string header, string description, Symbol icon, Uri? descriptionUri = null)
+internal class SimpleSettingsGroup(string token, string header, string description, Symbol icon, Uri? descriptionUri = null)
     : List<ISettingsEntry>, ISettingsGroup
 {
+    /// <inheritdoc />
+    public string Token { get; } = token;
+
     /// <inheritdoc />
     public string Header { get; } = header;
 

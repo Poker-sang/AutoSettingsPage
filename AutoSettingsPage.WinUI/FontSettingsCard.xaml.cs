@@ -1,12 +1,11 @@
-using System.Collections.ObjectModel;
 using AutoSettingsPage.Models;
 using Microsoft.UI.Xaml.Media;
 
 namespace AutoSettingsPage.WinUI;
 
-public sealed partial class FontSettingsCard : IEntryControl<ISingleValueSettingsEntry<ObservableCollection<string>>>
+public sealed partial class FontSettingsCard : IEntryControl<ISingleValueSettingsEntry<string>>
 {
-    public ISingleValueSettingsEntry<ObservableCollection<string>> Entry { get; set; } = null!;
+    public ISingleValueSettingsEntry<string> Entry { get; set; } = null!;
 
     public FontSettingsCard() => InitializeComponent();
 

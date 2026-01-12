@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using AutoSettingsPage.Models;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -7,7 +8,7 @@ using Windows.System;
 
 namespace AutoSettingsPage.WinUI;
 
-internal static class SettingsEntryHelper
+public static class SettingsEntryHelper
 {
     public static IReadOnlyList<string> AvailableFonts { get; set; } = [];
 
@@ -34,22 +35,6 @@ internal static class SettingsEntryHelper
 
     public static Dictionary<Type, Func<ISettingsEntry, FrameworkElement>> FactoryDictionary { get; } = new();
 
-    public static void AddPredefined<TSettings>()
-    {
-        FactoryDictionary
-            .Add<ClickableSettingsEntry, ClickableSettingsCard>()
-            .Add<StringSettingsEntry<TSettings>, StringSettingsCard>()
-            .Add<DoubleSettingsEntry<TSettings>, DoubleSettingsCard>()
-            .Add<IntSettingsEntry<TSettings>, DoubleSettingsCard>()
-            .Add<BoolSettingsEntry<TSettings>, BoolSettingsCard>()
-            .Add<EnumSettingsEntry<TSettings, object>, EnumSettingsCard>()
-            .Add<DateTimeOffsetSettingsEntry<TSettings>, DateSettingsCard>()
-            .Add<CollectionSettingsEntry<TSettings, string>, FontSettingsCard>()
-            .Add<CollectionSettingsEntry<TSettings, string>, TokenizingSettingsExpander>()
-            .Add<UIntSettingsEntry<TSettings>, ColorSettingsCard>()
-            .Add<MultiValuesEntry<TSettings>, MultiValuesAppSettingsExpander>();
-    }
-
 
     extension(Dictionary<Type, Func<ISettingsEntry, FrameworkElement>> dictionary)
     {
@@ -60,5 +45,28 @@ internal static class SettingsEntryHelper
             dictionary[typeof(TEntry)] = entry => new TControl { Entry = (TEntry) entry };
             return dictionary;
         }
+
+        public Dictionary<Type, Func<ISettingsEntry, FrameworkElement>> AddPredefined<TSettings>()
+        {
+            return dictionary
+                .Add<ClickableSettingsEntry, ClickableSettingsCard>()
+                .Add<StringSettingsEntry<TSettings>, StringSettingsCard>()
+                .Add<DoubleSettingsEntry<TSettings>, DoubleSettingsCard>()
+                .Add<IntSettingsEntry<TSettings>, DoubleSettingsCard>()
+                .Add<BoolSettingsEntry<TSettings>, BoolSettingsCard>()
+                .Add<EnumSettingsEntry<TSettings, object>, EnumSettingsCard>()
+                .Add<DateTimeOffsetSettingsEntry<TSettings>, DateSettingsCard>()
+                .Add<FontSettingsEntry<TSettings>, FontSettingsCard>()
+                .Add<CollectionSettingsEntry<TSettings, string>, TokenizingSettingsExpander>()
+                .Add<ColorSettingsEntry<TSettings>, ColorSettingsCard>()
+                .Add<MultiValuesEntry<TSettings>, MultiValuesAppSettingsExpander>();
+        }
+    }
+
+    extension<TSettings>(ISettingsGroupBuilder<TSettings> builder)
+    {
+        public ISettingsGroupBuilder<TSettings> Font(Expression<Func<TSettings, string>> property,
+            Action<FontSettingsEntry<TSettings>>? config = null) =>
+            builder.Add(new(builder.Settings, property), config);
     }
 }

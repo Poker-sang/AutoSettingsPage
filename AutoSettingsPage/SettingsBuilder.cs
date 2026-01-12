@@ -8,12 +8,15 @@ namespace AutoSettingsPage;
 
 public static class SettingsBuilder
 {
-    public static ISettingsBuilder<TSettings> Create<TSettings>(TSettings settings) =>
-        new SettingsBuilderImpl<TSettings>(settings);
+    public static ISettingsGroupBuilder<TSettings> CreateGroup<TSettings>(TSettings settings) =>
+        new SettingsGroupBuilderImpl<TSettings>(settings);
 
-    extension<TSettings>(ISettingsBuilder<TSettings> builder)
+    public static ISettingsGroupListBuilder<TSettings> CreateGroupList<TSettings>(TSettings settings) =>
+        new SettingsGroupListBuilderImpl<TSettings>(settings);
+
+    extension<TSettings>(ISettingsGroupBuilder<TSettings> builder)
     {
-        public ISettingsBuilder<TSettings> Clickable(
+        public ISettingsGroupBuilder<TSettings> Clickable(
             string token,
             string header,
             string description,
@@ -21,23 +24,24 @@ public static class SettingsBuilder
             EventHandler<ClickableSettingsEntry, EventArgs> clicked,
             Action<ClickableSettingsEntry>? config = null) =>
             builder.Add(new(token, header, description, icon, clicked), config);
-        public ISettingsBuilder<TSettings> SingleValue<TValue>(
+
+        public ISettingsGroupBuilder<TSettings> SingleValue<TValue>(
             Expression<Func<TSettings, TValue>> property,
             Action<SingleValueSettingsEntry<TSettings, TValue>>? config = null) =>
             builder.Add(new(builder.Settings, property), config);
 
-        public ISettingsBuilder<TSettings> SingleValueWithOption<TValue, TOption>(
+        public ISettingsGroupBuilder<TSettings> SingleValueWithOption<TValue, TOption>(
             Expression<Func<TSettings, TValue>> property,
             TOption option,
             Action<SingleValueWithOptionSettingsEntry<TSettings, TValue, TOption>>? config = null) =>
             builder.Add(new(builder.Settings, property, option), config);
 
-        public ISettingsBuilder<TSettings> String(
+        public ISettingsGroupBuilder<TSettings> String(
             Expression<Func<TSettings, string>> property,
             Action<StringSettingsEntry<TSettings>>? config = null) =>
             builder.Add(new(builder.Settings, property), config);
 
-        public ISettingsBuilder<TSettings> Number<TNumber>(
+        public ISettingsGroupBuilder<TSettings> Number<TNumber>(
             Expression<Func<TSettings, TNumber>> property,
             TNumber min, TNumber max, TNumber step,
             Action<NumberSettingsEntry<TSettings, TNumber>>? config = null)
@@ -49,7 +53,7 @@ public static class SettingsBuilder
                 Step = step
             }, config);
 
-        public ISettingsBuilder<TSettings> Int(
+        public ISettingsGroupBuilder<TSettings> Int(
             Expression<Func<TSettings, int>> property,
             int min, int max, int step,
             Action<IntSettingsEntry<TSettings>>? config = null) =>
@@ -60,7 +64,7 @@ public static class SettingsBuilder
                 Step = step
             }, config);
 
-        public ISettingsBuilder<TSettings> Double(
+        public ISettingsGroupBuilder<TSettings> Double(
             Expression<Func<TSettings, double>> property,
             double min, double max, double step,
             Action<DoubleSettingsEntry<TSettings>>? config = null) =>
@@ -71,7 +75,7 @@ public static class SettingsBuilder
                 Step = step
             }, config);
 
-        public ISettingsBuilder<TSettings> UInt(
+        public ISettingsGroupBuilder<TSettings> UInt(
             Expression<Func<TSettings, uint>> property,
             uint min, uint max, uint step,
             Action<UIntSettingsEntry<TSettings>>? config = null) =>
@@ -82,7 +86,7 @@ public static class SettingsBuilder
                 Step = step
             }, config);
 
-        public ISettingsBuilder<TSettings> DateTime(
+        public ISettingsGroupBuilder<TSettings> DateTimeOffset(
             Expression<Func<TSettings, DateTimeOffset>> property,
             DateTimeOffset min, DateTimeOffset max,
             Action<DateTimeOffsetSettingsEntry<TSettings>>? config = null) =>
@@ -92,77 +96,67 @@ public static class SettingsBuilder
                 Max = max
             }, config);
 
-        public ISettingsBuilder<TSettings> Bool(
+        public ISettingsGroupBuilder<TSettings> Bool(
             Expression<Func<TSettings, bool>> property,
             Action<BoolSettingsEntry<TSettings>>? config = null) =>
             builder.Add(new(builder.Settings, property), config);
 
-        public ISettingsBuilder<TSettings> Enum<TEnum>(Expression<Func<TSettings, TEnum>> property,
-            IReadOnlyList<EnumStringPair<TEnum>> enumItems,
+        public ISettingsGroupBuilder<TSettings> Enum<TEnum>(
+            Expression<Func<TSettings, TEnum>> property,
+            IReadOnlyList<IReadOnlyEnumStringPair<TEnum>> enumItems,
             Action<EnumSettingsEntry<TSettings, TEnum>>? config = null) =>
             builder.Add(new(builder.Settings, property, enumItems), config);
 
-        public ISettingsBuilder<TSettings> Collection<TItem>(Expression<Func<TSettings, ObservableCollection<TItem>>> property,
+        public ISettingsGroupBuilder<TSettings> Collection<TItem>(
+            Expression<Func<TSettings, ObservableCollection<TItem>>> property,
             Action<CollectionSettingsEntry<TSettings, TItem>>? config = null) =>
             builder.Add(new(builder.Settings, property), config);
 
-        public ISettingsBuilder<TSettings> MultiValues(Expression<Func<TSettings, object>> property,
-            Action<ISettingsBuilder<TSettings>>? configValues,
+        public ISettingsGroupBuilder<TSettings> MultiValues(
+            Expression<Func<TSettings, object>> property,
+            Action<ISettingsGroupBuilder<TSettings>>? configValues,
             Action<MultiValuesEntry<TSettings>>? config = null)
         {
-            var simpleAddSettingsEntry = new SettingsBuilderImpl<TSettings>(builder.Settings);
+            var simpleAddSettingsEntry = CreateGroup(builder.Settings);
             configValues?.Invoke(simpleAddSettingsEntry);
             return builder.Add(new(property, simpleAddSettingsEntry.Build()), config);
         }
+
+        public ISettingsGroupBuilder<TSettings> MultiValuesWithSwitch(
+            Expression<Func<TSettings, bool>> property,
+            Action<ISettingsGroupBuilder<TSettings>>? configValues,
+            Action<MultiValuesWithSwitchEntry<TSettings>>? config = null)
+        {
+            var simpleAddSettingsEntry = CreateGroup(builder.Settings);
+            configValues?.Invoke(simpleAddSettingsEntry);
+            return builder.Add(new(builder.Settings, property, simpleAddSettingsEntry.Build()), config);
+        }
     }
 
-    private class SettingsBuilderImpl<TSettings> : ISettingsBuilder<TSettings>
+    private class SettingsGroupBuilderImpl<TSettings> : ISettingsGroupBuilder<TSettings>
     {
         public TSettings Settings { get; }
 
-        private readonly List<SimpleSettingsGroup> _groups = [];
-
-        private SimpleSettingsGroup CurrentGroup
-        {
-            get
-            {
-                if (_currentGroup is null)
-                {
-                    _currentGroup = new("", "", default);
-                    _groups.Add(_currentGroup);
-                }
-
-                return _currentGroup;
-            }
-        }
-
-        private SimpleSettingsGroup? _currentGroup;
+        private readonly List<ISettingsEntry> _entries = [];
 
         private ISettingsEntry? _currentEntry;
 
-        internal SettingsBuilderImpl(TSettings settings) => Settings = settings;
+        internal SettingsGroupBuilderImpl(TSettings settings) => Settings = settings;
 
         /// <inheritdoc />
-        public ISettingsBuilder<TSettings> Add<TEntry>(TEntry entry,
+        public ISettingsGroupBuilder<TSettings> Add<TEntry>(
+            TEntry entry,
             Action<TEntry>? config = null)
             where TEntry : ISettingsEntry
         {
             _currentEntry = entry;
-            CurrentGroup.Add(entry);
+            _entries.Add(entry);
             config?.Invoke(entry);
             return this;
         }
 
         /// <inheritdoc />
-        public ISettingsBuilder<TSettings> NewGroup(string header, string description = "", Symbol icon = default, Uri? descriptionUri = null)
-        {
-            _currentGroup = new(header, description, icon, descriptionUri);
-            _groups.Add(_currentGroup);
-            return this;
-        }
-
-        /// <inheritdoc />
-        public ISettingsBuilder<TSettings> ConfigLastEntry(Action<ISettingsEntry> config)
+        public ISettingsGroupBuilder<TSettings> ConfigLast(Action<ISettingsEntry> config)
         {
             if (_currentEntry is null)
                 throw new InvalidOperationException("No entry has been added to configure.");
@@ -171,11 +165,50 @@ public static class SettingsBuilder
         }
 
         /// <inheritdoc />
-        public ISettingsBuilder<TSettings> ConfigLastGroup(Action<ISettingsGroup> config)
+        public IReadOnlyList<ISettingsEntry> Build() => _entries;
+
+        public ISettingsGroupBuilder<TSettings> AddRange(IReadOnlyList<ISettingsEntry> entries)
+        {
+            if (entries is not [.., var last])
+                return this;
+            _currentEntry = last;
+            _entries.AddRange(entries);
+            return this;
+        }
+    }
+
+    private class SettingsGroupListBuilderImpl<TSettings> : ISettingsGroupListBuilder<TSettings>
+    {
+        public TSettings Settings { get; }
+
+        private readonly List<SimpleSettingsGroup> _groups = [];
+
+        private SimpleSettingsGroup? _currentGroup;
+
+        internal SettingsGroupListBuilderImpl(TSettings settings) => Settings = settings;
+
+        /// <inheritdoc />
+        public ISettingsGroupListBuilder<TSettings> NewGroup(string header,
+            string description = "",
+            Symbol icon = default,
+            Uri? descriptionUri = null,
+            string? token = null,
+            Action<ISettingsGroup>? config = null)
+        {
+            _currentGroup = new SimpleSettingsGroup(token ?? header, header, description, icon, descriptionUri);
+            config?.Invoke(_currentGroup);
+            _groups.Add(_currentGroup);
+            return this;
+        }
+
+        /// <inheritdoc />
+        public ISettingsGroupListBuilder<TSettings> Config(Action<ISettingsGroupBuilder<TSettings>> config)
         {
             if (_currentGroup is null)
                 throw new InvalidOperationException("No group has been added to configure.");
-            config(_currentGroup);
+            var groupBuilder = CreateGroup(Settings);
+            config(groupBuilder);
+            _currentGroup.AddRange(groupBuilder.Build());
             return this;
         }
 

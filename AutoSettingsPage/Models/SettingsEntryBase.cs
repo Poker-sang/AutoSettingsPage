@@ -10,6 +10,19 @@ public abstract class SettingsEntryBase(
     string description,
     Symbol icon) : ISettingsEntry
 {
+    protected SettingsEntryBase(string token, SettingsEntryAttribute attribute)
+        : this(token, attribute.Header, attribute.Description, attribute.Icon)
+    {
+    }
+
+    /// <remarks>
+    /// Only extract <see cref="SettingsEntryAttribute"/> from <paramref name="propertyExpression"/>
+    /// </remarks>
+    protected SettingsEntryBase(LambdaExpression propertyExpression)
+        : this(GetMemberAttribute(propertyExpression, out _, out var attribute), attribute)
+    {
+    }
+
     public string Token { get; } = token;
 
     public string Header { get; set; } = header;
@@ -20,40 +33,17 @@ public abstract class SettingsEntryBase(
 
     public virtual Uri? DescriptionUri { get; set; }
 
-    private protected static MemberExpression GetMemberExpression<TSettings, TValue>(Expression<Func<TSettings, TValue>> property)
+    private protected static string GetMemberAttribute(LambdaExpression propertyExpression, out MemberExpression member, out SettingsEntryAttribute attribute)
     {
-        return property.Body switch
+        member = propertyExpression.Body switch
         {
             // t => (T)t.A
             UnaryExpression { Operand: MemberExpression member1 } => member1,
             // t => t.A
             MemberExpression member2 => member2,
-            _ => throw new ArgumentException(PropertyExceptionString, nameof(property))
+            _ => throw new ArgumentException(PropertyExceptionString, nameof(propertyExpression))
         };
-    }
-
-    private protected static string GetInfoFromMember(
-        MemberExpression member,
-        out string header,
-        out string description,
-        out Symbol icon,
-        out string? placeholder)
-    {
-        if (member.Member.GetCustomAttribute<SettingsEntryAttribute>() is { } attribute)
-        {
-            header = attribute.HeaderResource;
-            description = attribute.DescriptionResource ?? "";
-            icon = attribute.Symbol;
-            placeholder = attribute.PlaceholderResource;
-        }
-        else
-        {
-            header = "";
-            description = "";
-            icon = default;
-            placeholder = null;
-        }
-
+        attribute = member.Member.GetCustomAttribute<SettingsEntryAttribute>() ?? SettingsEntryAttribute.Empty;
         return member.Member.Name;
     }
 
