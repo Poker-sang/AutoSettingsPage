@@ -8,15 +8,15 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AutoSettingsPage.Models.SingleValueSettingsEntry&lt;TSettings, TValue&gt;" Collapsed="true">
-    <Position X="19.5" Y="3.5" Width="3.5" />
+    <Position X="19.75" Y="3.5" Width="3.5" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAEAAAAAAgAAgCAAQAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAABAAAAAAAAAAAAEAAgAEAgAAgCAAQQAA=</HashCode>
       <FileName>Models\SingleValueSettingsEntry.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="AutoSettingsPage.Models.ObservableSettingsEntry" Collapsed="true">
-    <Position X="20.25" Y="2" Width="2" />
+    <Position X="20.5" Y="2" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAIAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\ObservableSettingsEntry.cs</FileName>
@@ -24,9 +24,9 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="AutoSettingsPage.Models.SettingsEntryBase" Collapsed="true">
-    <Position X="20.75" Y="0.75" Width="1.5" />
+    <Position X="21" Y="0.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>BAAAAAAAAAAgAAAAAAAKAAAAAAAAAAAAAAAAAAERIAA=</HashCode>
+      <HashCode>BAAAAAAAAAAgAAAAAAACAQAAAAAAAAAAAAAAAAERAAA=</HashCode>
       <FileName>Models\SettingsEntryBase.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -46,14 +46,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AutoSettingsPage.Models.BoolSettingsEntry&lt;TSettings&gt;" Collapsed="true">
-    <Position X="19.5" Y="5" Width="2.75" />
+    <Position X="19.75" Y="5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\BoolSettingsEntry.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AutoSettingsPage.Models.DateTimeOffsetSettingsEntry&lt;TSettings&gt;" Collapsed="true">
-    <Position X="23" Y="5" Width="3.25" />
+    <Position X="23.5" Y="5" Width="3.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\DateTimeOffsetSettingsEntry.cs</FileName>
@@ -61,7 +61,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="AutoSettingsPage.Models.EnumSettingsEntry&lt;TSettings, TEnum&gt;" Collapsed="true">
-    <Position X="27" Y="5" Width="3" />
+    <Position X="27.5" Y="5" Width="3" />
     <TypeIdentifier>
       <HashCode>ACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\EnumSettingsEntry.cs</FileName>
@@ -69,14 +69,14 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="AutoSettingsPage.Models.CollectionSettingsEntry&lt;TSettings, TItem&gt;" Collapsed="true">
-    <Position X="30.75" Y="5" Width="4.25" />
+    <Position X="31.25" Y="5" Width="4.25" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>Models\CollectionSettingsEntry.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AutoSettingsPage.Models.StringSettingsEntry&lt;TSettings&gt;" Collapsed="true">
-    <Position X="35.75" Y="5" Width="2.75" />
+    <Position X="36.25" Y="5" Width="2.75" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\StringSettingsEntry.cs</FileName>
@@ -85,16 +85,17 @@
   <Class Name="AutoSettingsPage.Models.ClickableSettingsEntry" Collapsed="true">
     <Position X="1.25" Y="2" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAEAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAQAAACAAAAAAEAAAAAA=</HashCode>
       <FileName>Models\ClickableSettingsEntry.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AutoSettingsPage.Models.MultiValuesEntry&lt;TSettings&gt;" Collapsed="true">
-    <Position X="39.25" Y="2" Width="2.5" />
+    <Position X="39.75" Y="2" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Models\MultiValuesEntry.cs</FileName>
     </TypeIdentifier>
+    <Lollipop Position="0.2" />
   </Class>
   <Class Name="AutoSettingsPage.Models.SingleValueWithOptionSettingsEntry&lt;TSettings, TValue, TOption&gt;" Collapsed="true">
     <Position X="14" Y="5" Width="4.75" />
@@ -105,10 +106,18 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="AutoSettingsPage.Models.NumberSettingsEntry&lt;TSettings, TNumber&gt;" Collapsed="true">
-    <Position X="7" Y="5" Width="3.5" />
+    <Position X="6.75" Y="5" Width="3.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAABAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAA=</HashCode>
       <FileName>Models\NumberSettingsEntry.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AutoSettingsPage.Models.MultiValuesWithSwitchEntry&lt;TSettings&gt;" Collapsed="true">
+    <Position X="19.5" Y="6.25" Width="3.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Models\MultiValuesWithSwitchEntry.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>

@@ -5,7 +5,8 @@ namespace AutoSettingsPage.Models;
 
 public class MultiValuesEntry<TSettings> : SettingsEntryBase, IMultiValuesSettingsEntry
 {
-    public MultiValuesEntry(string token,
+    public MultiValuesEntry(
+        string token,
         string header,
         string description,
         Symbol icon,

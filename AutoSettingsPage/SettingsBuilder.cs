@@ -25,6 +25,14 @@ public static class SettingsBuilder
             Action<ClickableSettingsEntry>? config = null) =>
             builder.Add(new(token, header, description, icon, clicked), config);
 
+        public ISettingsGroupBuilder<TSettings> Clickable(
+            string header,
+            string description,
+            Symbol icon,
+            EventHandler<ClickableSettingsEntry, EventArgs> clicked,
+            Action<ClickableSettingsEntry>? config = null) =>
+            builder.Clickable(header, header, description, icon, clicked, config);
+
         public ISettingsGroupBuilder<TSettings> SingleValue<TValue>(
             Expression<Func<TSettings, TValue>> property,
             Action<SingleValueSettingsEntry<TSettings, TValue>>? config = null) =>
@@ -121,6 +129,27 @@ public static class SettingsBuilder
             configValues?.Invoke(simpleAddSettingsEntry);
             return builder.Add(new(property, simpleAddSettingsEntry.Build()), config);
         }
+
+        public ISettingsGroupBuilder<TSettings> MultiValues(
+            string token,
+            string header,
+            string description,
+            Symbol icon,
+            Action<ISettingsGroupBuilder<TSettings>>? configValues,
+            Action<MultiValuesEntry<TSettings>>? config = null)
+        {
+            var simpleAddSettingsEntry = CreateGroup(builder.Settings);
+            configValues?.Invoke(simpleAddSettingsEntry);
+            return builder.Add(new(token, header, description, icon, simpleAddSettingsEntry.Build()), config);
+        }
+
+        public ISettingsGroupBuilder<TSettings> MultiValues(
+            string header,
+            string description,
+            Symbol icon,
+            Action<ISettingsGroupBuilder<TSettings>>? configValues,
+            Action<MultiValuesEntry<TSettings>>? config = null) =>
+            builder.MultiValues(header, header, description, icon, configValues, config);
 
         public ISettingsGroupBuilder<TSettings> MultiValuesWithSwitch(
             Expression<Func<TSettings, bool>> property,

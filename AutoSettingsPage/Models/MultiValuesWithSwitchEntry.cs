@@ -3,7 +3,7 @@ using FluentIcons.Common;
 
 namespace AutoSettingsPage.Models;
 
-public class MultiValuesWithSwitchEntry<TSettings> : BoolSettingsEntry<TSettings>, IMultiValuesSettingsEntry
+public class MultiValuesWithSwitchEntry<TSettings> : BoolSettingsEntry<TSettings>, IMultiValuesWithSwitchSettingsEntry
 {
     public MultiValuesWithSwitchEntry(
         TSettings settings, 

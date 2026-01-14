@@ -43,8 +43,9 @@ public interface IOptionSettingsEntry<out TOption> : ISettingsEntry
     TOption Option { get; }
 }
 
-
 public interface IMultiValuesSettingsEntry : ISettingsEntry
 {
     IReadOnlyList<ISettingsEntry> Entries { get; }
 }
+
+public interface IMultiValuesWithSwitchSettingsEntry : IMultiValuesSettingsEntry, ISingleValueSettingsEntry<bool>;

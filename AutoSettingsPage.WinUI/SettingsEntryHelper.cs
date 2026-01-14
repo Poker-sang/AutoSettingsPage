@@ -59,13 +59,20 @@ public static class SettingsEntryHelper
                 .Add<FontSettingsEntry<TSettings>, FontSettingsCard>()
                 .Add<CollectionSettingsEntry<TSettings, string>, TokenizingSettingsExpander>()
                 .Add<ColorSettingsEntry<TSettings>, ColorSettingsCard>()
-                .Add<MultiValuesEntry<TSettings>, MultiValuesAppSettingsExpander>();
+                .Add<MultiValuesEntry<TSettings>, MultiValuesSettingsExpander>()
+                .Add<MultiValuesWithSwitchEntry<TSettings>, MultiValuesWithSwitchSettingsExpander>();
         }
     }
 
     extension<TSettings>(ISettingsGroupBuilder<TSettings> builder)
     {
-        public ISettingsGroupBuilder<TSettings> Font(Expression<Func<TSettings, string>> property,
+        public ISettingsGroupBuilder<TSettings> Color(
+            Expression<Func<TSettings, uint>> property,
+            Action<ColorSettingsEntry<TSettings>>? config = null) =>
+            builder.Add(new(builder.Settings, property), config);
+
+        public ISettingsGroupBuilder<TSettings> Font(
+            Expression<Func<TSettings, string>> property,
             Action<FontSettingsEntry<TSettings>>? config = null) =>
             builder.Add(new(builder.Settings, property), config);
     }

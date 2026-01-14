@@ -2,7 +2,7 @@ using AutoSettingsPage.Models;
 
 namespace AutoSettingsPage.WinUI;
 
-public sealed partial class MultiValuesAppSettingsExpander : IEntryControl<IMultiValuesSettingsEntry>
+public sealed partial class MultiValuesSettingsExpander : IEntryControl<IMultiValuesSettingsEntry>
 {
     public IMultiValuesSettingsEntry Entry
     {
@@ -16,5 +16,5 @@ public sealed partial class MultiValuesAppSettingsExpander : IEntryControl<IMult
         }
     } = null!;
 
-    public MultiValuesAppSettingsExpander() => InitializeComponent();
+    public MultiValuesSettingsExpander() => InitializeComponent();
 }

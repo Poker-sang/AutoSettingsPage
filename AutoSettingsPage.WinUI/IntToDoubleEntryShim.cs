@@ -1,0 +1,66 @@
+using System;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using AutoSettingsPage.Models;
+using FluentIcons.Common;
+
+namespace AutoSettingsPage.WinUI;
+
+internal class IntToDoubleEntryShim : INumberSettingsEntry<double>, INotifyPropertyChanged, IDisposable
+{
+    private readonly INumberSettingsEntry<int> _entry;
+
+    public IntToDoubleEntryShim(INumberSettingsEntry<int> entry)
+    {
+        if (entry is INotifyPropertyChanged npc)
+            npc.PropertyChanged += OnPropertyChanged;
+        _entry = entry;
+    }
+
+    private void OnPropertyChanged(object? sender, PropertyChangedEventArgs e) => OnPropertyChanged(e.PropertyName);
+
+    /// <inheritdoc />
+    public string Header => _entry.Header;
+
+    /// <inheritdoc />
+    public string Description => _entry.Description;
+
+    /// <inheritdoc />
+    public Symbol Icon => _entry.Icon;
+
+    /// <inheritdoc />
+    public Uri? DescriptionUri => _entry.DescriptionUri;
+
+    /// <inheritdoc />
+    public string Token => _entry.Token;
+
+    /// <inheritdoc />
+    public double Value
+    {
+        get => _entry.Value;
+        set => _entry.Value = (int) value;
+    }
+
+    /// <inheritdoc />
+    public string? Placeholder => _entry.Placeholder;
+
+    /// <inheritdoc />
+    public double Max => _entry.Max;
+
+    /// <inheritdoc />
+    public double Min => _entry.Min;
+
+    /// <inheritdoc />
+    public double Step => _entry.Step;
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    private void OnPropertyChanged([CallerMemberName] string? propertyName = null) => PropertyChanged?.Invoke(this, new(propertyName));
+
+    /// <inheritdoc />
+    public void Dispose()
+    {
+        if (_entry is INotifyPropertyChanged npc)
+            npc.PropertyChanged -= OnPropertyChanged;
+    }
+}

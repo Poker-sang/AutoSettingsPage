@@ -2,7 +2,7 @@ using AutoSettingsPage.Models;
 
 namespace AutoSettingsPage.WinUI;
 
-public sealed partial class DoubleSettingsCard : IEntryControl<INumberSettingsEntry<double>>, IEntryControl<INumberSettingsEntry<int>>
+public sealed partial class DoubleSliderSettingsCard : IEntryControl<INumberSettingsEntry<double>>, IEntryControl<INumberSettingsEntry<int>>
 {
     public INumberSettingsEntry<double> Entry
     {
@@ -17,7 +17,7 @@ public sealed partial class DoubleSettingsCard : IEntryControl<INumberSettingsEn
         }
     } = null!;
 
-    public DoubleSettingsCard() => InitializeComponent();
+    public DoubleSliderSettingsCard() => InitializeComponent();
 
     /// <inheritdoc />
     INumberSettingsEntry<int> IEntryControl<INumberSettingsEntry<int>>.Entry
@@ -28,5 +28,5 @@ public sealed partial class DoubleSettingsCard : IEntryControl<INumberSettingsEn
     /// <remarks>
     /// 触发Dispose
     /// </remarks>
-    ~DoubleSettingsCard() => Entry = null!;
+    ~DoubleSliderSettingsCard() => Entry = null!;
 }

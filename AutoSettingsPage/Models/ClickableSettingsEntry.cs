@@ -5,11 +5,13 @@ namespace AutoSettingsPage.Models;
 
 public class ClickableSettingsEntry : SettingsEntryBase
 {
-    public ClickableSettingsEntry(string token,
+    public ClickableSettingsEntry(
+        string token,
         string header,
         string description,
         Symbol icon,
-        EventHandler<ClickableSettingsEntry, EventArgs> clicked) : base(token, header, description, icon)
+        EventHandler<ClickableSettingsEntry, EventArgs> clicked)
+        : base(token, header, description, icon)
     {
         Clicked = clicked;
     }

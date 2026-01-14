@@ -7,7 +7,8 @@ public interface ISettingsGroupListBuilder<out TSettings>
 {
     TSettings Settings { get; }
 
-    ISettingsGroupListBuilder<TSettings> NewGroup(string header,
+    ISettingsGroupListBuilder<TSettings> NewGroup(
+        string header,
         string description = "",
         Symbol icon = default,
         Uri? descriptionUri = null,
