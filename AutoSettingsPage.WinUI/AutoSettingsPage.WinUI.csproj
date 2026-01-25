@@ -14,9 +14,9 @@
 		<PackageReference Include="CommunityToolkit.WinUI.Controls.ColorPicker" Version="8.2.251219" />
 		<PackageReference Include="CommunityToolkit.WinUI.Controls.SettingsControls" Version="8.2.251219" />
 		<PackageReference Include="CommunityToolkit.WinUI.Controls.TokenizingTextBox" Version="8.2.251219" />
-		<PackageReference Include="FluentIcons.WinUI" Version="2.0.316" />
+		<PackageReference Include="FluentIcons.WinUI" Version="2.0.317.1" />
 		<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.7463" />
-		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.251106002" />
+		<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.8.260101001" />
 
 		<ProjectReference Include="..\AutoSettingsPage\AutoSettingsPage.csproj" />
 	</ItemGroup>
