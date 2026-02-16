@@ -8,7 +8,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="FluentIcons.Common" Version="2.0.317" />
+		<PackageReference Include="FluentIcons.Common" Version="2.0.318" />
 	</ItemGroup>
 
 </Project>
