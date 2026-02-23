@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net10.0</TargetFramework>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia" Version="11.3.12" />
+		<PackageReference Include="FluentIcons.Avalonia" Version="2.0.319" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\AutoSettingsPage\AutoSettingsPage.csproj" />
+		<ProjectReference Include="..\SettingsControls.Avalonia\SettingsControls.Avalonia.csproj" />
+	</ItemGroup>
+
+</Project>

@@ -1,4 +1,6 @@
 <Solution>
+  <Project Path="AutoSettingsPage.Avalonia/AutoSettingsPage.Avalonia.csproj" Id="a6406022-ce3c-49cf-9f83-8d2584b041e9" />
   <Project Path="AutoSettingsPage.WinUI/AutoSettingsPage.WinUI.csproj" Id="d0f73812-058c-4b9d-9c4d-3815e7d2237f" />
   <Project Path="AutoSettingsPage/AutoSettingsPage.csproj" />
+  <Project Path="SettingsControls.Avalonia/SettingsControls.Avalonia.csproj" Id="64467d61-3193-419c-9455-cd1337457960" />
 </Solution>
