@@ -104,6 +104,16 @@ public static class SettingsBuilder
                 Max = max
             }, config);
 
+        public ISettingsGroupBuilder<TSettings> DateTime(
+            Expression<Func<TSettings, DateTime>> property,
+            DateTime min, DateTime max,
+            Action<DateTimeSettingsEntry<TSettings>>? config = null) =>
+            builder.Add(new(builder.Settings, property)
+            {
+                Min = min,
+                Max = max
+            }, config);
+
         public ISettingsGroupBuilder<TSettings> Bool(
             Expression<Func<TSettings, bool>> property,
             Action<BoolSettingsEntry<TSettings>>? config = null) =>
@@ -111,7 +121,7 @@ public static class SettingsBuilder
 
         public ISettingsGroupBuilder<TSettings> Enum<TEnum>(
             Expression<Func<TSettings, TEnum>> property,
-            IReadOnlyList<IReadOnlyEnumStringPair<TEnum>> enumItems,
+            IReadOnlyList<IReadOnlyStringPair<TEnum>> enumItems,
             Action<EnumSettingsEntry<TSettings, TEnum>>? config = null) =>
             builder.Add(new(builder.Settings, property, enumItems), config);
 

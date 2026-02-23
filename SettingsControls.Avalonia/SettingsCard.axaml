@@ -1,0 +1,176 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.Avalonia.Controls">
+
+    <Design.PreviewWith>
+        <controls:SettingsCard
+            Padding="16"
+            Description="Test Description"
+            Header="Test Header" />
+    </Design.PreviewWith>
+
+    <ControlTheme x:Key="{x:Type controls:SettingsCard}" TargetType="{x:Type controls:SettingsCard}">
+        <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+        <Setter Property="MinHeight" Value="68" />
+        <Setter Property="MinWidth" Value="148" />
+        <Setter Property="Padding" Value="16" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="{x:Type controls:SettingsCard}">
+                <Border
+                    x:Name="PART_RootBorder"
+                    MinWidth="{TemplateBinding MinWidth}"
+                    MinHeight="{TemplateBinding MinHeight}"
+                    MaxWidth="{TemplateBinding MaxWidth}"
+                    Padding="{TemplateBinding Padding}"
+                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                    VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                    Background="{TemplateBinding Background}"
+                    BorderBrush="{TemplateBinding BorderBrush}"
+                    BorderThickness="{TemplateBinding BorderThickness}"
+                    CornerRadius="{TemplateBinding CornerRadius}">
+                    <Grid
+                        x:Name="PART_RootGrid"
+                        ColumnDefinitions="Auto,*,Auto,Auto"
+                        RowDefinitions="*,Auto">
+
+                        <Viewbox
+                            x:Name="PART_HeaderIconPresenterHolder"
+                            Grid.RowSpan="1"
+                            MaxWidth="20"
+                            MaxHeight="20"
+                            Margin="2,0,20,0"
+                            IsVisible="False">
+                            <ContentPresenter x:Name="PART_HeaderIconPresenter" Content="{TemplateBinding HeaderIcon}" />
+                        </Viewbox>
+
+                        <StackPanel
+                            x:Name="HeaderPanel"
+                            Grid.Column="1"
+                            Margin="0,0,24,0"
+                            VerticalAlignment="Center"
+                            Orientation="Vertical">
+                            <ContentPresenter
+                                x:Name="PART_HeaderPresenter"
+                                Grid.Column="1"
+                                HorizontalAlignment="Left"
+                                Content="{TemplateBinding Header}"
+                                TextWrapping="Wrap" />
+
+                            <ContentPresenter
+                                x:Name="PART_DescriptionPresenter"
+                                Content="{TemplateBinding Description}"
+                                FontSize="12"
+                                Foreground="{DynamicResource TextFillColorSecondaryBrush}"
+                                TextWrapping="Wrap" />
+                        </StackPanel>
+
+                        <ContentPresenter
+                            x:Name="PART_ContentPresenter"
+                            Grid.Column="2"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                            Content="{TemplateBinding Content}" />
+
+                        <Viewbox
+                            x:Name="PART_ActionIconPresenterHolder"
+                            Grid.RowSpan="2"
+                            Grid.Column="3"
+                            MaxWidth="13"
+                            MaxHeight="13"
+                            Margin="14,0,0,0"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            IsVisible="False">
+                            <ContentPresenter
+                                x:Name="PART_ActionIconPresenter"
+                                Content="{TemplateBinding ActionIcon}"
+                                ToolTip.Tip="{TemplateBinding ActionIconToolTip}" />
+                        </Viewbox>
+                    </Grid>
+                </Border>
+            </ControlTemplate>
+        </Setter>
+
+        <!--  PointerOver state  -->
+        <Style Selector="^:pointerover /template/ Border#PART_RootBorder">
+            <Setter Property="Background" Value="{DynamicResource ControlFillColorSecondaryBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ControlElevationBorderBrush}" />
+        </Style>
+        <Style Selector="^:pointerover /template/ ContentPresenter#PART_HeaderPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        </Style>
+        <Style Selector="^:pointerover /template/ ContentPresenter#PART_HeaderIconPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        </Style>
+
+        <!--  Pressed state  -->
+        <Style Selector="^:pressed /template/ Border#PART_RootBorder">
+            <Setter Property="Background" Value="{DynamicResource ControlFillColorTertiaryBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
+        </Style>
+        <Style Selector="^:pressed /template/ ContentPresenter#PART_HeaderPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+        </Style>
+        <Style Selector="^:pressed /template/ ContentPresenter#PART_DescriptionPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+        </Style>
+        <Style Selector="^:pressed /template/ ContentPresenter#PART_HeaderIconPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorSecondaryBrush}" />
+        </Style>
+
+        <!--  Disabled state  -->
+        <Style Selector="^:disabled /template/ Border#PART_RootBorder">
+            <Setter Property="Background" Value="{DynamicResource ControlFillColorDisabledBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource ControlStrokeColorDefaultBrush}" />
+        </Style>
+        <Style Selector="^:disabled /template/ ContentPresenter#PART_HeaderPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorDisabledBrush}" />
+        </Style>
+        <Style Selector="^:disabled /template/ ContentPresenter#PART_DescriptionPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorDisabledBrush}" />
+        </Style>
+        <Style Selector="^:disabled /template/ ContentPresenter#PART_HeaderIconPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorDisabledBrush}" />
+        </Style>
+        <Style Selector="^:disabled /template/ ContentPresenter#PART_ActionIconPresenter">
+            <Setter Property="Foreground" Value="{DynamicResource TextFillColorDisabledBrush}" />
+        </Style>
+
+        <!--  Left alignment: hide header/description/icon, content on left  -->
+        <Style Selector="^:left /template/ Viewbox#PART_HeaderIconPresenterHolder">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^:left /template/ ContentPresenter#PART_DescriptionPresenter">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^:left /template/ ContentPresenter#PART_HeaderPresenter">
+            <Setter Property="IsVisible" Value="False" />
+        </Style>
+        <Style Selector="^:left /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Grid.Row" Value="1" />
+            <Setter Property="Grid.Column" Value="1" />
+            <Setter Property="HorizontalAlignment" Value="Left" />
+        </Style>
+
+        <!--  Vertical alignment  -->
+        <Style Selector="^:vertical /template/ ContentPresenter#PART_ContentPresenter">
+            <Setter Property="Grid.Row" Value="1" />
+            <Setter Property="Grid.Column" Value="1" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+        </Style>
+
+        <!--  Content spacing for vertical/wrapped  -->
+        <Style Selector="^:contentspacing /template/ Grid#PART_RootGrid">
+            <Setter Property="RowSpacing" Value="8" />
+        </Style>
+    </ControlTheme>
+</ResourceDictionary>

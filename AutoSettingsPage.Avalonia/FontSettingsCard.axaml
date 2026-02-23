@@ -1,0 +1,28 @@
+<controls:SettingsCard
+    x:Class="AutoSettingsPage.Avalonia.FontSettingsCard"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:avalonia="using:AutoSettingsPage.Avalonia"
+    xmlns:controls="using:CommunityToolkit.Avalonia.Controls"
+    xmlns:fluent="using:FluentIcons.Avalonia"
+    xmlns:local="using:AutoSettingsPage.Avalonia"
+    xmlns:models="using:AutoSettingsPage.Models"
+    x:DataType="{x:Type models:ISingleValueSettingsEntry`1}"
+    Description="{Binding Converter={x:Static avalonia:SettingsEntryHelper.DescriptionConverter}}"
+    Header="{Binding Header}"
+    Tag="{Binding Token}">
+    <controls:SettingsCard.HeaderIcon>
+        <fluent:SymbolIcon Symbol="{Binding Icon}" />
+    </controls:SettingsCard.HeaderIcon>
+    <ComboBox
+        Width="200"
+        ItemsSource="{x:Static local:SettingsEntryHelper.AvailableFonts}"
+        PlaceholderText="{Binding Placeholder}"
+        SelectedItem="{Binding Value, Mode=TwoWay}">
+        <ComboBox.ItemTemplate>
+            <DataTemplate>
+                <TextBlock FontFamily="{Binding Converter={x:Static local:FontSettingsCard.FontFamilyConverter}}" Text="{Binding}" />
+            </DataTemplate>
+        </ComboBox.ItemTemplate>
+    </ComboBox>
+</controls:SettingsCard>

@@ -1,0 +1,18 @@
+<controls:SettingsCard
+    x:Class="AutoSettingsPage.Avalonia.ColorSettingsCard"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:avalonia="using:AutoSettingsPage.Avalonia"
+    xmlns:controls="using:CommunityToolkit.Avalonia.Controls"
+    xmlns:fluent="using:FluentIcons.Avalonia"
+    xmlns:local="using:AutoSettingsPage.Avalonia"
+    xmlns:models="using:AutoSettingsPage.Models"
+    x:DataType="{x:Type models:ISingleValueSettingsEntry`1}"
+    Description="{Binding Converter={x:Static avalonia:SettingsEntryHelper.DescriptionConverter}}"
+    Header="{Binding Header}"
+    Tag="{Binding Token}">
+    <controls:SettingsCard.HeaderIcon>
+        <fluent:SymbolIcon Symbol="{Binding Icon}" />
+    </controls:SettingsCard.HeaderIcon>
+    <ColorPicker Color="{Binding Value, Mode=TwoWay, Converter={x:Static local:ColorSettingsCard.ColorConverter}}" />
+</controls:SettingsCard>

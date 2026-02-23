@@ -1,0 +1,21 @@
+<Styles
+    x:Class="CommunityToolkit.Avalonia.Controls.SettingsControlsTheme"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Styles.Resources>
+        <ResourceDictionary>
+            <Thickness x:Key="SettingsExpanderHeaderPadding">16,16,4,16</Thickness>
+            <Thickness x:Key="SettingsExpanderItemPadding">58,8,44,8</Thickness>
+            <Thickness x:Key="SettingsExpanderItemBorderThickness">0,1,0,0</Thickness>
+            <Thickness x:Key="ClickableSettingsExpanderItemPadding">58,8,16,8</Thickness>
+            <x:Double x:Key="SettingsExpanderContentMinHeight">16</x:Double>
+
+            <ResourceDictionary.MergedDictionaries>
+                <MergeResourceInclude Source="avares://SettingsControls.Avalonia/SettingsCard.axaml" />
+                <MergeResourceInclude Source="avares://SettingsControls.Avalonia/SettingsExpander.axaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Styles.Resources>
+
+</Styles>

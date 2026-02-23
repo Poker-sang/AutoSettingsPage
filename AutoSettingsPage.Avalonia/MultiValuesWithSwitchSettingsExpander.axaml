@@ -1,0 +1,19 @@
+<controls:SettingsExpander
+    x:Class="AutoSettingsPage.Avalonia.MultiValuesWithSwitchSettingsExpander"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:avalonia="using:AutoSettingsPage.Avalonia"
+    xmlns:controls="using:CommunityToolkit.Avalonia.Controls"
+    xmlns:fluent="using:FluentIcons.Avalonia"
+    xmlns:models="using:AutoSettingsPage.Models"
+    x:DataType="{x:Type models:IMultiValuesWithSwitchSettingsEntry}"
+    Description="{Binding Converter={x:Static avalonia:SettingsEntryHelper.DescriptionConverter}}"
+    Header="{Binding Header}"
+    Tag="{Binding Token}">
+    <controls:SettingsExpander.HeaderIcon>
+        <fluent:SymbolIcon Symbol="{Binding Icon}" />
+    </controls:SettingsExpander.HeaderIcon>
+    <controls:SettingsExpander.Content>
+        <ToggleSwitch IsChecked="{Binding Value, Mode=TwoWay}" />
+    </controls:SettingsExpander.Content>
+</controls:SettingsExpander>

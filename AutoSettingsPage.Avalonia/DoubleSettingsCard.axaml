@@ -1,0 +1,25 @@
+<controls:SettingsCard
+    x:Class="AutoSettingsPage.Avalonia.DoubleSettingsCard"
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:avalonia="using:AutoSettingsPage.Avalonia"
+    xmlns:controls="using:CommunityToolkit.Avalonia.Controls"
+    xmlns:fluent="using:FluentIcons.Avalonia"
+    xmlns:local="using:AutoSettingsPage.Avalonia"
+    xmlns:models="using:AutoSettingsPage.Models"
+    x:DataType="{x:Type models:INumberSettingsEntry`1}"
+    Description="{Binding Converter={x:Static avalonia:SettingsEntryHelper.DescriptionConverter}}"
+    Header="{Binding Header}"
+    Tag="{Binding Token}">
+    <controls:SettingsCard.HeaderIcon>
+        <fluent:SymbolIcon Symbol="{Binding Icon}" />
+    </controls:SettingsCard.HeaderIcon>
+    <NumericUpDown
+        MinWidth="200"
+        FormatString="F0"
+        Increment="{Binding Step, Converter={x:Static local:DoubleDecimalConverter.Instance}}"
+        Maximum="{Binding Max, Converter={x:Static local:DoubleDecimalConverter.Instance}}"
+        Minimum="{Binding Min, Converter={x:Static local:DoubleDecimalConverter.Instance}}"
+        Watermark="{Binding Placeholder}"
+        Value="{Binding Value, Mode=TwoWay, Converter={x:Static local:DoubleDecimalConverter.Instance}}" />
+</controls:SettingsCard>

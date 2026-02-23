@@ -1,0 +1,93 @@
+<ResourceDictionary
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:controls="using:CommunityToolkit.Avalonia.Controls"
+    xmlns:converters="using:CommunityToolkit.Avalonia.Controls.Converters">
+
+    <Design.PreviewWith>
+        <controls:SettingsExpander
+            Padding="16"
+            Description="Test Description"
+            Header="Test Expander" />
+    </Design.PreviewWith>
+
+    <converters:BottomCornerRadiusConverter x:Key="BottomCornerRadiusConverter" />
+
+    <!--  DefaultSettingsExpanderItemStyle: base style for SettingsCard items inside an expander  -->
+    <ControlTheme
+        x:Key="DefaultSettingsExpanderItemStyle"
+        BasedOn="{StaticResource {x:Type controls:SettingsCard}}"
+        TargetType="{x:Type controls:SettingsCard}">
+        <Setter Property="BorderThickness" Value="{DynamicResource SettingsExpanderItemBorderThickness}" />
+        <Setter Property="MinHeight" Value="52" />
+        <Setter Property="Padding" Value="{DynamicResource SettingsExpanderItemPadding}" />
+        <Setter Property="CornerRadius" Value="0" />
+    </ControlTheme>
+
+    <!--  ClickableSettingsExpanderItemStyle: for clickable items inside an expander  -->
+    <ControlTheme
+        x:Key="ClickableSettingsExpanderItemStyle"
+        BasedOn="{StaticResource DefaultSettingsExpanderItemStyle}"
+        TargetType="{x:Type controls:SettingsCard}">
+        <Setter Property="Padding" Value="{DynamicResource ClickableSettingsExpanderItemPadding}" />
+    </ControlTheme>
+
+    <ControlTheme x:Key="{x:Type controls:SettingsExpander}" TargetType="{x:Type controls:SettingsExpander}">
+        <Setter Property="Background" Value="{DynamicResource CardBackgroundFillColorDefaultBrush}" />
+        <Setter Property="Foreground" Value="{DynamicResource TextFillColorPrimaryBrush}" />
+        <Setter Property="BorderBrush" Value="{DynamicResource CardStrokeColorDefaultBrush}" />
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="{DynamicResource ControlCornerRadius}" />
+        <Setter Property="MinHeight" Value="68" />
+        <Setter Property="MinWidth" Value="148" />
+        <Setter Property="Padding" Value="{DynamicResource SettingsExpanderHeaderPadding}" />
+        <Setter Property="HorizontalAlignment" Value="Stretch" />
+        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Template">
+            <ControlTemplate TargetType="{x:Type controls:SettingsExpander}">
+                <Expander
+                    MinWidth="{TemplateBinding MinWidth}"
+                    MinHeight="{TemplateBinding MinHeight}"
+                    Padding="0"
+                    HorizontalAlignment="{TemplateBinding HorizontalAlignment}"
+                    HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                    CornerRadius="{TemplateBinding CornerRadius}"
+                    IsExpanded="{TemplateBinding IsExpanded,
+                                                 Mode=TwoWay}">
+                    <Expander.Header>
+                        <controls:SettingsCard
+                            Padding="{DynamicResource SettingsExpanderHeaderPadding}"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Content="{TemplateBinding Content}"
+                            Description="{TemplateBinding Description}"
+                            FontFamily="{TemplateBinding FontFamily}"
+                            Header="{TemplateBinding Header}"
+                            HeaderIcon="{TemplateBinding HeaderIcon}"
+                            IsClickEnabled="False" />
+                    </Expander.Header>
+                    <Expander.Content>
+                        <Border CornerRadius="{TemplateBinding CornerRadius, Converter={StaticResource BottomCornerRadiusConverter}}">
+                            <Grid RowDefinitions="Auto,*,Auto">
+                                <ContentPresenter Content="{TemplateBinding ItemsHeader}" />
+                                <ItemsControl
+                                    x:Name="PART_ItemsControl"
+                                    Grid.Row="1"
+                                    ItemTemplate="{TemplateBinding ItemTemplate}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <StackPanel Orientation="Vertical" />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                                <ContentPresenter Grid.Row="2" Content="{TemplateBinding ItemsFooter}" />
+                            </Grid>
+                        </Border>
+                    </Expander.Content>
+                </Expander>
+            </ControlTemplate>
+        </Setter>
+    </ControlTheme>
+</ResourceDictionary>

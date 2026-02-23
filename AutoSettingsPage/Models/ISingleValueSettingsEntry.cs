@@ -35,7 +35,7 @@ public interface INumberSettingsEntry<TNumber> : IMinMaxEntry<TNumber> where TNu
 
 public interface IEnumSettingsEntry<TEnum> : ISingleValueSettingsEntry<TEnum>
 {
-    IReadOnlyList<IReadOnlyEnumStringPair<TEnum>> EnumItems { get; }
+    IReadOnlyList<IReadOnlyStringPair<TEnum>> EnumItems { get; }
 }
 
 public interface IOptionSettingsEntry<out TOption> : ISettingsEntry

@@ -5,7 +5,7 @@ namespace AutoSettingsPage.Models;
 
 public class EnumSettingsEntry<TSettings, TEnum> : SingleValueSettingsEntry<TSettings, TEnum>, IEnumSettingsEntry<TEnum>
 {
-    public IReadOnlyList<IReadOnlyEnumStringPair<TEnum>> EnumItems { get; set; }
+    public IReadOnlyList<IReadOnlyStringPair<TEnum>> EnumItems { get; set; }
 
     public EnumSettingsEntry(
         TSettings settings,
@@ -16,7 +16,7 @@ public class EnumSettingsEntry<TSettings, TEnum> : SingleValueSettingsEntry<TSet
         string? placeholder,
         Func<TSettings, TEnum> getter,
         Action<TSettings, TEnum> setter,
-        IReadOnlyList<IReadOnlyEnumStringPair<TEnum>> enumItems)
+        IReadOnlyList<IReadOnlyStringPair<TEnum>> enumItems)
         : base(settings, token, header, description, icon, placeholder, getter, setter)
     {
         EnumItems = enumItems;
@@ -28,7 +28,7 @@ public class EnumSettingsEntry<TSettings, TEnum> : SingleValueSettingsEntry<TSet
         SettingsEntryAttribute attribute,
         Func<TSettings, TEnum> getter,
         Action<TSettings, TEnum> setter,
-        IReadOnlyList<IReadOnlyEnumStringPair<TEnum>> enumItems)
+        IReadOnlyList<IReadOnlyStringPair<TEnum>> enumItems)
         : base(settings, token, attribute, getter, setter)
     {
         EnumItems = enumItems;
@@ -37,7 +37,7 @@ public class EnumSettingsEntry<TSettings, TEnum> : SingleValueSettingsEntry<TSet
     public EnumSettingsEntry(
         TSettings settings,
         Expression<Func<TSettings, TEnum>> property,
-        IReadOnlyList<IReadOnlyEnumStringPair<TEnum>> enumItems)
+        IReadOnlyList<IReadOnlyStringPair<TEnum>> enumItems)
         : base(settings, property)
     {
         EnumItems = enumItems;
