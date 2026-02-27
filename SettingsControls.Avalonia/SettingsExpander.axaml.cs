@@ -5,7 +5,6 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Controls.Primitives;
 using Avalonia.Controls.Templates;
-using Avalonia.Metadata;
 
 namespace CommunityToolkit.Avalonia.Controls;
 
@@ -130,18 +129,22 @@ public class SettingsExpander : ContentControl
 
     private ItemsControl? _itemsControl;
 
-    static SettingsExpander()
+    /// <inheritdoc />
+    protected override void OnPropertyChanged(AvaloniaPropertyChangedEventArgs e)
     {
-        IsExpandedProperty.Changed.AddClassHandler<SettingsExpander>((s, e) =>
+        base.OnPropertyChanged(e);
+        if (e.Property == IsExpandedProperty)
         {
-            var newValue = (bool)e.NewValue!;
+            var newValue = e.GetNewValue<bool>();
             if (newValue)
-                s.Expanded?.Invoke(s, EventArgs.Empty);
+                Expanded?.Invoke(this, EventArgs.Empty);
             else
-                s.Collapsed?.Invoke(s, EventArgs.Empty);
-        });
-
-        ItemsSourceProperty.Changed.AddClassHandler<SettingsExpander>((s, _) => s.UpdateItemsSource());
+                Collapsed?.Invoke(this, EventArgs.Empty);
+        }
+        else if (e.Property == ItemsSourceProperty)
+        {
+            UpdateItemsSource();
+        }
     }
 
     /// <inheritdoc />
@@ -154,9 +157,6 @@ public class SettingsExpander : ContentControl
 
     private void UpdateItemsSource()
     {
-        if (_itemsControl is null)
-            return;
-
-        _itemsControl.ItemsSource = ItemsSource ?? Items;
+        _itemsControl?.ItemsSource = ItemsSource ?? Items;
     }
 }
