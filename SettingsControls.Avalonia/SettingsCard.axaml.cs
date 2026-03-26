@@ -190,7 +190,8 @@ public class SettingsCard : ContentControl
     {
         base.OnPointerReleased(e);
         PseudoClasses.Set(":pressed", false);
-        if (IsClickEnabled)
+
+        if (e.InitialPressMouseButton is MouseButton.Left)
         {
             var args = new RoutedEventArgs(ClickEvent);
             RaiseEvent(args);
