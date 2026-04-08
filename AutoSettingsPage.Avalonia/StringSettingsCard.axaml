@@ -22,5 +22,5 @@
     <TextBox
         Width="200"
         Text="{Binding Value, Mode=TwoWay}"
-        Watermark="{Binding Placeholder}" />
+        PlaceholderText="{Binding Placeholder}" />
 </controls:SettingsCard>

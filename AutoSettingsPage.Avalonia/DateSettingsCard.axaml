@@ -20,5 +20,5 @@
     <controls:SettingsCard.HeaderIcon>
         <fluent:SymbolIcon Symbol="{Binding Icon}" />
     </controls:SettingsCard.HeaderIcon>
-    <CalendarDatePicker SelectedDate="{Binding Value, Mode=TwoWay}" Watermark="{Binding Placeholder}" />
+    <CalendarDatePicker SelectedDate="{Binding Value, Mode=TwoWay}" PlaceholderText="{Binding Placeholder}" />
 </controls:SettingsCard>

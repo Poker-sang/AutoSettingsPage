@@ -26,6 +26,6 @@
         Increment="{Binding Step, Converter={x:Static local:DoubleDecimalConverter.Instance}}"
         Maximum="{Binding Max, Converter={x:Static local:DoubleDecimalConverter.Instance}}"
         Minimum="{Binding Min, Converter={x:Static local:DoubleDecimalConverter.Instance}}"
-        Watermark="{Binding Placeholder}"
+        PlaceholderText="{Binding Placeholder}"
         Value="{Binding Value, Mode=TwoWay, Converter={x:Static local:DoubleDecimalConverter.Instance}}" />
 </controls:SettingsCard>
