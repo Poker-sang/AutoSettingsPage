@@ -4,12 +4,14 @@ using System.Linq.Expressions;
 using AutoSettingsPage.Models;
 using Avalonia.Controls;
 using Avalonia.Data.Converters;
+using Avalonia.Media;
+using Avalonia.Media.Fonts;
 
 namespace AutoSettingsPage.Avalonia;
 
 public static class SettingsEntryHelper
 {
-    public static IReadOnlyList<string> AvailableFonts { get; set; } = [];
+    public static IFontCollection AvailableFonts => FontManager.Current.SystemFonts;
 
     public static FuncValueConverter<ISettingsEntry, object?> DescriptionConverter { get; } = new(DescriptionControl);
 
@@ -53,7 +55,7 @@ public static class SettingsEntryHelper
                 .Add<BoolSettingsEntry<TSettings>, BoolSettingsCard>()
                 .Add<EnumSettingsEntry<TSettings, object>, EnumSettingsCard>()
                 .Add<DateTimeSettingsEntry<TSettings>, DateSettingsCard>()
-                .Add<FontSettingsEntry<TSettings>, FontSettingsCard>()
+                .Add<FontSettingsEntry<TSettings>, FontSettingsExpander>()
                 .Add<ColorSettingsEntry<TSettings>, ColorSettingsCard>()
                 .Add<MultiValuesEntry<TSettings>, MultiValuesSettingsExpander>()
                 .Add<MultiValuesWithSwitchEntry<TSettings>, MultiValuesWithSwitchSettingsExpander>();

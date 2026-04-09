@@ -20,4 +20,10 @@
 		<ProjectReference Include="..\SettingsControls.Avalonia\SettingsControls.Avalonia.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Compile Update="FontSettingsExpander.axaml.cs">
+	    <DependentUpon>FontSettingsExpander.axaml</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+
 </Project>
