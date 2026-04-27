@@ -55,7 +55,6 @@ public static class SettingsEntryHelper
                 .Add<BoolSettingsEntry<TSettings>, BoolSettingsCard>()
                 .Add<EnumSettingsEntry<TSettings, object>, EnumSettingsCard>()
                 .Add<DateTimeSettingsEntry<TSettings>, DateSettingsCard>()
-                .Add<FontSettingsEntry<TSettings>, FontSettingsExpander>()
                 .Add<ColorSettingsEntry<TSettings>, ColorSettingsCard>()
                 .Add<MultiValuesEntry<TSettings>, MultiValuesSettingsExpander>()
                 .Add<MultiValuesWithSwitchEntry<TSettings>, MultiValuesWithSwitchSettingsExpander>();
@@ -67,11 +66,6 @@ public static class SettingsEntryHelper
         public ISettingsGroupBuilder<TSettings> Color(
             Expression<Func<TSettings, uint>> property,
             Action<ColorSettingsEntry<TSettings>>? config = null) =>
-            builder.Add(new(builder.Settings, property), config);
-
-        public ISettingsGroupBuilder<TSettings> Font(
-            Expression<Func<TSettings, string>> property,
-            Action<FontSettingsEntry<TSettings>>? config = null) =>
             builder.Add(new(builder.Settings, property), config);
     }
 }
